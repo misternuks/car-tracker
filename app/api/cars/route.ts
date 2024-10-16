@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/prisma-client'
 
 
-// Get handler
+// GET handler
 export async function GET() {
   try {
 
@@ -10,7 +10,7 @@ export async function GET() {
     const cars = await prisma.car.findMany();
     return NextResponse.json(cars);
 
-    //Throw errors
+    //Handle errors
   } catch (error) {
     console.error('Error fetching cars:', error);
     return NextResponse.json(
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(newCar, { status: 201 });
 
-    // Throw errors
+    // Handle errors
   } catch (error) {
     console.error('Error creating car:', error);
     return NextResponse.json(
