@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/prisma-client';
+import { Prisma } from '@prisma/client';
 
 // PUT handler
 export async function PUT(
   request: Request,
 
-  // Access the dynamic route for the car via the options
+  // Access the ID parameter from the URL via the options
   { params }: { params: { id: string } }
 ) {
   try {
@@ -32,6 +33,7 @@ export async function PUT(
       },
     });
 
+    // If successful
     return NextResponse.json(updatedCar);
 
     // Handle errors
@@ -41,5 +43,31 @@ export async function PUT(
       { error: 'Failed to update care'},
       { status: 500 }
     );
+  }
+}
+
+// DELETE handler
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const carId = Number(params.id);
+
+    await prisma.car.delete({
+      where: { id: carId },
+    });
+
+    return NextResponse.json({ message: 'Car deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting car:', error);
+
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2025') {
+        return NextResponse.json({ error: 'Car not found' }, { status: 404 });
+      }
+    }
+
+    return NextResponse.json({ error: 'Failed to delete car' }, { status: 500 });
   }
 }
