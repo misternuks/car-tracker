@@ -3,6 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import '@/app/globals.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+
+const editIcon = <FontAwesomeIcon className="icon" icon={faPenToSquare} />
+const trashIcon = <FontAwesomeIcon className="icon" icon={faTrash} />
+
+
 
 interface Car {
   id: number;
@@ -66,9 +73,9 @@ const CarsPage: React.FC = () => {
       <h5>Cars Index</h5>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         {loading ? (
-          <p>Loading cars...</p>
+          <div className="card">Loading cars...</div>
         ) : error? (
-          <p>Error loading cars: {error}</p>
+          <div className="card">Error loading cars: {error}</div>
         ) : cars.length > 0 ? (
           <table className=" table-auto w-full text-sm">
             <thead className="text-xs uppercase">
@@ -90,18 +97,22 @@ const CarsPage: React.FC = () => {
                   <td className="px-6 py-4">{car.model}</td>
                   <td className="px-6 py-4">{car.registration}</td>
                   <td className="px-6 py-4">{car.notes}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-center">
                     <Link href={`/cars/edit/${car.id}`}>
-                      <button>Edit /</button>
+                      <button>
+                        {editIcon}
+                      </button>
                     </Link>
-                    <button onClick={() => handleDelete(car.id)}>&nbsp;Delete</button>
+                    <button onClick={() => handleDelete(car.id)}>
+                      {trashIcon}
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <p>No cars yet.</p>
+          <div className="card">No cars yet.</div>
         )}
       </div>
       <Link className="purplebutton" href="/cars/add">Add new car</Link>

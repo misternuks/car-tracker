@@ -61,3 +61,8 @@ h5 {
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
   align-self: center;
 }
+
+.icon {
+  color: rgb(100, 100, 200);
+  margin: 0px 8px;
+}
