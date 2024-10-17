@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import '@/app/globals.css';
 
@@ -18,8 +17,8 @@ const CarsPage: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // const router = useRouter();
 
+  //useEffect hook to fetch cars from the database
   useEffect(() => {
     const fetchCars = async () => {
       try {
@@ -37,9 +36,10 @@ const CarsPage: React.FC = () => {
     };
 
     fetchCars();
+    // Empty dependency array ensures fetchCars only runs once
   }, []);
 
-  // Delete functionality
+  // DELETE functionality
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this car?')) {
       return;
