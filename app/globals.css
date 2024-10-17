@@ -10,6 +10,7 @@
   width: 100%;
   height: auto;
   padding: 8px;
+  margin-top: 64px;
 }
 
 .card {
@@ -23,12 +24,20 @@
   gap: 8px;
 }
 
+thead {
+  background-color: rgb(150, 150, 200);
+  color: white;
+}
+
 input, textarea {
   background-color: rgb(245, 245, 245);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
   width: 100%;
+  padding: 2px 4px;
+  font-size: 14px;
+  color: rgb(100, 100, 200);
 }
 
 input:focus, textarea:focus {

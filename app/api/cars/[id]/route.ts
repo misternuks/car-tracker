@@ -2,6 +2,36 @@ import { NextResponse } from 'next/server';
 import prisma from '@/prisma-client';
 import { Prisma } from '@prisma/client';
 
+
+// GET handler
+export async function GET(
+  request: Request,
+
+  // Access the ID parameter from the URL via the options
+  { params }: { params: { id: string } }
+) {
+  try {
+    const carId = Number(params.id);
+    const car = await prisma.car.findUnique({
+      where: { id: carId },
+    });
+
+    if (!car) {
+      return NextResponse.json({ error: 'Car not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(car);
+
+  // Handle errors
+  } catch (error) {
+    console.error('Error fetching car:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch car' },
+      { status: 500 }
+    );
+  }
+}
+
 // PUT handler
 export async function PUT(
   request: Request,
