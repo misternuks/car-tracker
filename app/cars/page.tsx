@@ -37,26 +37,43 @@ const CarsPage: React.FC = () => {
   }, []);
   return (
     <div className="container">
-      <div className="card">
-        <h1>Cars Index</h1>
-        <Link href="/cars/add">Add new car</Link>
+      <h5>Cars Index</h5>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         {loading ? (
           <p>Loading cars...</p>
         ) : error? (
           <p>Error loading cars: {error}</p>
         ) : cars.length > 0 ? (
-          <ul>
-            {cars.map((car) => (
-              <li key={car.id}>
-                {car.brand} {car.model} {car.registration} {car.notes}
-              </li>
-            ))}
-          </ul>
+          <table className=" table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">Brand</th>
+                <th scope="col" className="px-6 py-3">Model</th>
+                <th scope="col" className="px-6 py-3">Registration</th>
+                <th scope="col" className="px-6 py-3">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cars.map((car) => (
+                <tr
+                  key={car.id}
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                >
+                  <td className="px-6 py-4">{car.brand}</td>
+                   <td className="px-6 py-4">{car.model}</td>
+                   <td className="px-6 py-4">{car.registration}</td>
+                   <td className="px-6 py-4">{car.notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <p>No cars yet.</p>
         )}
       </div>
+      <Link className="purplebutton" href="/cars/add">Add new car</Link>
     </div>
+
   );
 };
 

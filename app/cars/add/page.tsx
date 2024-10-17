@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import '@/app/globals.css';
+import Link from 'next/link';
 
 const AddCarPage: React.FC = () => {
   const [registration, setRegistration] = useState('');
@@ -45,56 +47,59 @@ const AddCarPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Add New Car</h1>
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Registration:
-            <input
-              type="text"
-              value={registration}
-              onChange={(e) => setRegistration(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Brand:
-            <input
-              type="text"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Model:
-            <input
-              type="text"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Notes:
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            ></textarea>
-          </label>
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Adding...' : 'Add Car'}
-        </button>
-      </form>
+    <div className="container">
+        <h5>Add New Car</h5>
+      <div>
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        <form onSubmit={handleSubmit} className="card">
+          <div>
+            <label>
+              Registration:
+              <input
+                type="text"
+                value={registration}
+                onChange={(e) => setRegistration(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Brand:
+              <input
+                type="text"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Model:
+              <input
+                type="text"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Notes:
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              ></textarea>
+            </label>
+          </div>
+          <button className="purplebutton" type="submit" disabled={loading}>
+            {loading ? 'Adding...' : 'Add Car'}
+          </button>
+        </form>
+      </div>
+      <Link href="/cars" className="my-4 text-indigo-700">Back to the index</Link>
     </div>
   );
 };
